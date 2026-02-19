@@ -6,10 +6,10 @@ return [
         'pgsql:host=%s;port=%s;dbname=%s',
         getenv('POSTGRES_HOST') ?: 'localhost',
         getenv('POSTGRES_PORT') ?: '5432',
-        getenv('POSTGRES_DB') ?: 'loan_request'
+        getenv('POSTGRES_DB') ?: 'loans'
     ),
-    'username' => getenv('POSTGRES_USER') ?: 'postgres',
-    'password' => getenv('POSTGRES_PASSWORD') ?: 'postgres',
+    'username' => getenv('POSTGRES_USER') ?: 'user',
+    'password' => getenv('POSTGRES_PASSWORD') ?: 'password',
     'charset' => 'utf8',
 
     // Schema cache options (for production environment)
