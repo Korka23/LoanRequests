@@ -3,26 +3,24 @@
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
-$config = [
+return [
     'id' => 'loan-request-api',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
-    'aliases' => [
-        '@bower' => '@vendor/bower-asset',
-        '@npm'   => '@vendor/npm-asset',
-    ],
     'components' => [
         'request' => [
-            'cookieValidationKey' => '',
             'parsers' => [
                 'application/json' => 'yii\web\JsonParser',
             ],
+            'enableCookieValidation' => false,
+            'enableCsrfValidation' => false,
         ],
-        'cache' => [
-            'class' => 'yii\caching\FileCache',
+        'db' => $db,
+        'user' => [
+            'identityClass' => null,
+            'enableSession' => false,
         ],
         'log' => [
-            'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
@@ -30,25 +28,15 @@ $config = [
                 ],
             ],
         ],
-        'db' => $db,
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'enableStrictParsing' => true,
             'rules' => [
-                'POST requests' => 'request/create',
-                'GET processor' => 'request/processor',
+                'POST api/requests' => 'request/create',
+                'GET api/processor' => 'request/processor',
             ],
         ],
     ],
     'params' => $params,
 ];
-
-if (YII_ENV_DEV) {
-    $config['bootstrap'][] = 'debug';
-    $config['modules']['debug'] = [
-        'class' => 'yii\debug\Module',
-    ];
-}
-
-return $config;
