@@ -13,6 +13,6 @@ class User extends ActiveRecord
 
     public function getLoanRequests(): \yii\db\ActiveQuery
     {
-        return $this->hasMany(LoanRequest::class, ['user_id' => 'id']);
+        return $this->hasMany(Request::class, ['user_id' => 'id']);
     }
 }
